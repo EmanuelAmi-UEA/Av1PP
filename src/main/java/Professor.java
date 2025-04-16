@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+
+
 public class Professor  {
   private String nome;
   private String especilidade;
@@ -8,7 +11,7 @@ public class Professor  {
     this.nome = nome;
     this.especilidade = especilidade;
     this.id = id;
-    this.cursos = new ArrayList<>();
+    this.cursos = new ArrayList<Curso>();
   }
 
   public void adicionarCurso(Curso curso) {
