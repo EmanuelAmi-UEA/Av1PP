@@ -8,6 +8,8 @@ public class Aluno{
     this.matricula = matricula;
     this.email = email;
   }
+
+  /////////////// Metodos getters e setters ///////////////////
   public String getNome(){
     return this.nome;
   }

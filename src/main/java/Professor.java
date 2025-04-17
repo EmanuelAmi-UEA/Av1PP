@@ -14,6 +14,7 @@ public class Professor  {
     this.cursos = new ArrayList<Curso>();
   }
 
+  /////////////// Metodos de manipulação de cursos ///////////////////
   public void adicionarCurso(Curso curso) {
     this.cursos.add(curso);
     curso.setProfessor(this);
@@ -23,7 +24,8 @@ public class Professor  {
     this.cursos.remove(curso);
     curso.setProfessor(null);
   }
-
+  
+  /////////////// Metodos getters e setters ///////////////////
   public ArrayList<Curso> getCursos() {
     return this.cursos;
   }

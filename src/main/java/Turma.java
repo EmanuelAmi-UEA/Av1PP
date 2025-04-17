@@ -6,12 +6,13 @@ public class Turma{
   private String periodo;
   private ArrayList<Aluno> listaDeAlunos;
 
-  public Turma(String codigo, String periodo, ArrayList<Aluno> listaDeAlunos){
+  public Turma(String codigo, String periodo){
     this.codigo = codigo;
     this.periodo = periodo;
-    this.listaDeAlunos = listaDeAlunos;
+    this.listaDeAlunos = new ArrayList<Aluno>();
   }
 
+  /////////// Metodos getters e setters ///////////////////
   public String getCodigo(){
     return this.codigo;
   }
@@ -27,9 +28,7 @@ public class Turma{
   public void setPeriodo(String periodo){
     this.periodo = periodo;
   }
-  public void setListaDeAlunos(ArrayList<Aluno> listaDeAlunos){
-    this.listaDeAlunos = listaDeAlunos;
-  }
+  ///////// Metodos de manipulação de alunos /////////
   public void adicionarAluno(Aluno aluno){
     this.listaDeAlunos.add(aluno);
   }

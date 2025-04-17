@@ -1,16 +1,34 @@
+import java.util.ArrayList;
+
+
 public class Curso{
   private String nome;
   private String cargaHoraria;
   private String ementa;
   private Professor professor;
+  private ArrayList<Turma> turmas;
 
   public Curso(String nome, String cargaHoraria, String ementa){
     this.nome = nome;
     this.cargaHoraria = cargaHoraria;
     this.ementa = ementa;
     this.professor = null;
+    this.turmas = new ArrayList<Turma>();
   }
 
+  /////////////// Metodos de manipulação de turmas ///////////////////
+  public void adicionarTurma(Turma turma){
+    this.turmas.add(turma);
+  }
+  public void removerTurma(Turma turma){
+    this.turmas.remove(turma);
+  }
+  
+  /////////////// Metodos getters e setters ///////////////////
+  public ArrayList<Turma> getTurmas(){
+    return this.turmas;
+  }
+  
   public Professor getProfessor() {
     return this.professor;
   }
