@@ -8,7 +8,7 @@ public class PerformanceReport {
         this.turma = turma;
     }
 
-    public double calculateWeightedAverage() {
+    public double calculateMediaPonderada() {
         double totalNotas = 0.0;
         double totalPesos = 0.0;
 

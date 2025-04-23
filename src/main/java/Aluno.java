@@ -10,6 +10,7 @@ public class Aluno{
     this.nome = nome;
     this.matricula = matricula;
     this.email = email;
+    this.submissions = new ArrayList<Submission>();
   }
 
   /////////////// Metodos getters e setters ///////////////////
@@ -41,5 +42,17 @@ public class Aluno{
   }
   public void removeSubmission(Submission submission){
     this.submissions.remove(submission);
+  }
+
+  // Método para limpar todas as submissions ao deletar o aluno
+  public void deleteAluno() {
+    // Remove todas as submissions deste aluno
+    for (Submission submission : new ArrayList<Submission>(this.submissions)) {
+      Assessment assessment = submission.getAssessment();
+      // Remove a referência desta submission na lista de submissions do Assessment
+      assessment.getSubmissions().remove(submission);
+    }
+    // Limpa a lista de submissions do aluno
+    this.submissions.clear();
   }
 }

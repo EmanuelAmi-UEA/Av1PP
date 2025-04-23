@@ -11,7 +11,6 @@ public class Curso{
     this.nome = nome;
     this.cargaHoraria = cargaHoraria;
     this.ementa = ementa;
-    this.professor = null;
     this.turmas = new ArrayList<Turma>();
   }
 
@@ -26,6 +25,10 @@ public class Curso{
   /////////////// Metodos getters e setters ///////////////////
   public ArrayList<Turma> getTurmas(){
     return this.turmas;
+  }    
+
+  public String getTurmaName(int index){
+    return this.turmas.get(index).getCodigo();
   }
   
   public Professor getProfessor() {

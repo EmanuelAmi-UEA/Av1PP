@@ -11,6 +11,9 @@ public class Submission {
         this.nota = nota;
         this.dataEntrega = dataEntrega;
         this.comentarios = comentarios;
+        this.assessment.addSubmission(this);
+        this.aluno.addSubmission(this);
+            
     }
 
     public Aluno getAluno() { 
