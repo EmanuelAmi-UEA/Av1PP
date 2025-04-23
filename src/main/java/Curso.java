@@ -26,10 +26,6 @@ public class Curso{
   public ArrayList<Turma> getTurmas(){
     return this.turmas;
   }    
-
-  public String getTurmaName(int index){
-    return this.turmas.get(index).getCodigo();
-  }
   
   public Professor getProfessor() {
     return this.professor;

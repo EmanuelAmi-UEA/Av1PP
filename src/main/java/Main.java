@@ -98,91 +98,30 @@ public class Main {
     turma2.getListaDeAlunos().get(4).addSubmission(new Submission(turma2.getListaDeAlunos().get(4), av3Turma2, 8.0, "2025-05-30", "Parabens!"));
 
 
-
-    /* Exibir informações
-    System.out.println("=== INFORMAÇÕES DO PROFESSOR ===");
-    System.out.println("Nome: " + professor.getNome());
-    System.out.println("Especialidade: " + professor.getEspecilidade());
-    System.out.println("ID: " + professor.getId());
-
-    System.out.println("\n=== INFORMAÇÕES DO PROFESSOR ===");
-    System.out.println("Nome: " + professor2.getNome());
-    System.out.println("Especialidade: " + professor2.getEspecilidade());
-    System.out.println("ID: " + professor2.getId());
-
-    System.out.println("\n=== INFORMAÇÕES DO CURSO ===");
-    System.out.println("Nome: " + curso.getNome());
-    System.out.println("Professor: " + curso.getProfessor().getNome());
-    System.out.println("Carga Horária: " + curso.getCargaHoraria());
-    System.out.println("Ementa: " + curso.getEmenta());
-
-    System.out.println("\n=== INFORMAÇÕES DO CURSO ===");
-    System.out.println("Nome: " + curso2.getNome());
-    System.out.println("Professor: " + curso2.getProfessor().getNome());
-    System.out.println("Carga Horária: " + curso2.getCargaHoraria());
-    System.out.println("Ementa: " + curso2.getEmenta());
-
-    // Exibir informações da Turma 1
-    System.out.println("\n=== TURMA 1 ===");
-    System.out.println("Curso: " + curso.getNome());
-    System.out.println("Código: " + turma1.getCodigo());
-    System.out.println("Período: " + turma1.getPeriodo());
-    System.out.println("Alunos:");
-    for (Aluno aluno : turma1.getListaDeAlunos()) {
-      System.out.println("- " + aluno.getNome() + " (Matrícula: " + aluno.getMatricula() + ")");
-    }
-    System.out.println("Avaliações:");
-    for (Assessment avaliacao : turma1.getListaDeAvaliacoes()){
-      System.out.println("- " + avaliacao.getTipo() + " (Peso: " + avaliacao.getPeso()  + ")");
-    }
-
-    // Exibir informações da Turma 2
-    System.out.println("\n=== TURMA 2 ===");
-    System.out.println("Curso: " + curso2.getNome());
-    System.out.println("Código: " + turma2.getCodigo());
-    System.out.println("Período: " + turma2.getPeriodo());
-    System.out.println("Alunos:");
-    for (Aluno aluno : turma2.getListaDeAlunos()) {
-      System.out.println("- " + aluno.getNome() + " (Matrícula: " + aluno.getMatricula() + ")");
-    }
-    System.out.println("Avaliações:");
-    for (Assessment avaliacao : turma2.getListaDeAvaliacoes()){
-      System.out.println("- " + avaliacao.getTipo() + " (Peso: " + avaliacao.getPeso()  + ")");
-    }*/
-
-    //Exibir informações de submissions
-    /*System.out.println("Selecione uma turma para ver as submissions:\n");
-    System.out.println((1) + " - " + curso.getTurmas().get(0).getCodigo() + "\n");
-    System.out.println((2) + " - " + curso2.getTurmas().get(0).getCodigo() + "\n");
-
-    System.out.print("Digite o numero da turma: ");
-    int escolha = scanner.nextInt();
-
-
-
-
-
-       /* if (escolha < 1 || escolha > curso.size()) {
-            System.out.println("Escolha invalida.");
-            scanner.close();
-            return;
-        }*/
-
     ///Escolha de curso
-    System.out.println("Escolha um curso:");
-    System.out.println("1 - " + curso.getNome());
-    System.out.println("2 - " + curso2.getNome());
+        boolean continuar = true;
+        while (continuar) {
+            System.out.println("\nEscolha um curso:");
+            System.out.println("1 - " + curso.getNome());
+            System.out.println("2 - " + curso2.getNome());
+            System.out.println("0 - Sair");
+            System.out.print("Digite o número do curso: ");
 
-    int escolhaCurso = scanner.nextInt();
-    scanner.nextLine(); // Limpar buffer do Scanner
+            int escolhaCurso = scanner.nextInt();
+            scanner.nextLine(); // Limpar buffer do Scanner
 
-    if (escolhaCurso < 1 || escolhaCurso > 2) {
-        System.out.println("Curso inválido.");
-        scanner.close();
-        return;
-    }
+            if (escolhaCurso == 0) {
+                System.out.println("Programa encerrado.");
+                continuar = false;
+                continue;
+            }
 
-    Curso cursoEscolhido = (escolhaCurso == 1) ? curso : curso2;
+            if (escolhaCurso < 1 || escolhaCurso > 2) {
+                System.out.println("Curso inválido.");
+                continue;
+            }
+
+        Curso cursoEscolhido = (escolhaCurso == 1) ? curso : curso2;
 
         // Menu de opções
         System.out.println("\nEscolha uma opção:");
@@ -190,6 +129,7 @@ public class Main {
         System.out.println("2 - Exibir informações das Turmas");
         System.out.println("3 - Exibir Submissões de uma Turma");
         System.out.println("4 - Exibir Relatório de Desempenho de um Aluno");
+        System.out.println("5 - Deletar Aluno");
 
         int escolhaMenu = scanner.nextInt();
         scanner.nextLine(); // Limpar buffer do Scanner
@@ -230,7 +170,9 @@ public class Main {
                         for (Submission s : submissions) {
                             System.out.println("  Aluno: " + s.getAluno().getNome() +
                                     " | Nota: " + s.getNota() +
-                                    " | Entrega: " + s.getDataEntrega());
+                                    " | Entrega: " + s.getDataEntrega() +
+                                    " | Comentários: " + s.getComentarios());
+                            
                         }
                     }
                 }
@@ -269,12 +211,29 @@ public class Main {
                     System.out.println("Aluno não encontrado ou sem submissões.");
                 }
                 break;
+            case 5:
+                System.out.println("Deletar aluno");
+                System.out.println("Digite o nome do aluno:");
+                String nomeAlunoDeletar = scanner.nextLine();
+                for (Turma turma : cursoEscolhido.getTurmas()){
+                    for (Aluno aluno : turma.getListaDeAlunos()) {
+                        if (aluno.getNome().equalsIgnoreCase(nomeAlunoDeletar)) {
+                            aluno.deleteAluno();
+                            turma.removerAluno(aluno);
+                            System.out.println("Aluno deletado com sucesso.");
+                            break;
+                        }
+                    }
+                }
+                break;
 
           default:
               System.out.println("Opção inválida.");
               break;
       }
-        scanner.close();
     }
-  }
+    scanner.close();
+    }
+}
+  
 
