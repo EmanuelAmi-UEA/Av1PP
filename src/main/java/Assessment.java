@@ -5,14 +5,14 @@ public class Assessment {
     private String tipo;
     private double notaMaxima;
     private double peso;
-    private Curso curso;
+    private Turma turma;
     private List<Submission> submissions = new ArrayList<Submission>();
 
-    public Assessment(String tipo, double notaMaxima, double peso, Curso curso) {
+    public Assessment(String tipo, double notaMaxima, double peso, Turma turma) {
         this.tipo = tipo;
         this.notaMaxima = notaMaxima;
         this.peso = peso;
-        this.curso = curso;
+        this.turma = turma;
     }
 
     public String getTipo() { 
@@ -24,8 +24,8 @@ public class Assessment {
     public double getPeso() { 
         return this.peso; 
     }
-    public Curso getCurso() { 
-        return this.curso; 
+    public Turma getTruma() { 
+        return this.turma; 
     }
     public List<Submission> getSubmissions() { 
         return this.submissions; 

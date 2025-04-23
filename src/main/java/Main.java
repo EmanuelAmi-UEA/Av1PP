@@ -41,6 +41,16 @@ public class Main {
     turma2.adicionarAluno(new Aluno("Ana Oliveira", "2023004", "ana@email.com"));
     turma2.adicionarAluno(new Aluno("Lucas Pereira", "2023005", "lucas@email.com"));
     
+    
+    // criar avaliações
+    
+    Assessment av1Turma1 = new Assessment("Prova 1", 10.0, 0.4, turma1);
+    Assessment av2Turma1 = new Assessment("Prova 2", 10.0, 0.6, turma1);
+    Assessment av3Turma1 = new Assessment("prova 3", 10.0, 1.0, turma1);
+    Assessment av1Turma2 = new Assessment("Teste", 5.0, 0.3, turma2);
+    Assessment av2Turma2 = new Assessment("Trabalho Prático", 10.0, 0.7, turma2);
+    Assessment av3Turma2 = new Assessment("Projeto", 10.0, 0.5, turma2);
+    
     // Exibir informações
     System.out.println("=== INFORMAÇÕES DO PROFESSOR ===");
     System.out.println("Nome: " + professor.getNome());
