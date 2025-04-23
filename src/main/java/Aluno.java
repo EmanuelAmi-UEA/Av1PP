@@ -1,7 +1,10 @@
+import java.util.ArrayList;
+
 public class Aluno{
   private String nome;
   private String matricula;
   private String email;
+  private ArrayList<Submission> submissions = new ArrayList<Submission>();
 
   public Aluno(String nome, String matricula, String email){
     this.nome = nome;
@@ -27,5 +30,16 @@ public class Aluno{
   }
   public void setEmail(String email){
     this.email = email;
+  }
+  public ArrayList<Submission> getSubmissions() {
+    return this.submissions;
+  }
+
+  /////////////// Metodos de manipulação de submissions ///////////////////
+  public void addSubmission(Submission submission){
+    this.submissions.add(submission);
+  }
+  public void removeSubmission(Submission submission){
+    this.submissions.remove(submission);
   }
 }

@@ -24,13 +24,12 @@ public class Assessment {
     public double getPeso() { 
         return this.peso; 
     }
-    public Turma getTruma() { 
+    public Turma getTurma() { 
         return this.turma; 
     }
     public List<Submission> getSubmissions() { 
         return this.submissions; 
     }
-
     public void addSubmission(Submission submission) {
         submissions.add(submission);
     }

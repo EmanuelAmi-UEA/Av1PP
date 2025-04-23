@@ -50,6 +50,14 @@ public class Main {
     Assessment av1Turma2 = new Assessment("Teste", 5.0, 0.3, turma2);
     Assessment av2Turma2 = new Assessment("Trabalho Prático", 10.0, 0.7, turma2);
     Assessment av3Turma2 = new Assessment("Projeto", 10.0, 0.5, turma2);
+
+    // adicionar avaliações
+    turma1.adicionarAvaliacao(av1Turma1);
+    turma1.adicionarAvaliacao(av2Turma1);
+    turma1.adicionarAvaliacao(av3Turma1);
+    turma2.adicionarAvaliacao(av1Turma2);
+    turma2.adicionarAvaliacao(av2Turma2);
+    turma2.adicionarAvaliacao(av3Turma2);
     
     // Exibir informações
     System.out.println("=== INFORMAÇÕES DO PROFESSOR ===");
@@ -83,6 +91,11 @@ public class Main {
     for (Aluno aluno : turma1.getListaDeAlunos()) {
       System.out.println("- " + aluno.getNome() + " (Matrícula: " + aluno.getMatricula() + ")");
     }
+    System.out.println("Avaliações:");
+    for (Assessment avaliacao : turma1.getListaDeAvaliacoes()){
+      System.out.println("- " + avaliacao.getTipo() + " (Peso: " + avaliacao.getPeso()  + ")");
+    }
+    
     
     // Exibir informações da Turma 2
     System.out.println("\n=== TURMA 2 ===");
@@ -92,6 +105,10 @@ public class Main {
     System.out.println("Alunos:");
     for (Aluno aluno : turma2.getListaDeAlunos()) {
       System.out.println("- " + aluno.getNome() + " (Matrícula: " + aluno.getMatricula() + ")");
+    }
+    System.out.println("Avaliações:");
+    for (Assessment avaliacao : turma2.getListaDeAvaliacoes()){
+      System.out.println("- " + avaliacao.getTipo() + " (Peso: " + avaliacao.getPeso()  + ")");
     }
   }
 }
