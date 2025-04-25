@@ -101,6 +101,7 @@ public class Main {
       System.out.println("1 - " + curso.getNome());
       System.out.println("2 - " + curso2.getNome());
       System.out.println("0 - Sair");
+      System.out.print("Opção: ");
 
       int escolhaCurso = scanner.nextInt();
       scanner.nextLine(); // Consumir a quebra de linha
