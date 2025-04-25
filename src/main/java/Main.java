@@ -118,10 +118,10 @@ public class Main {
                 continuar = false;
                 continue;
             }
-            
+
             escolhaCurso++; // Ajuste para manter a lógica original (1 ou 2)
 
-            
+
 
             if (escolhaCurso == 0) {
                 System.out.println("Programa encerrado.");
@@ -144,7 +144,7 @@ public class Main {
             "Exibir Relatório de Desempenho de um Aluno",
             "Deletar Aluno"
         };
-        
+
         int escolhaMenu = javax.swing.JOptionPane.showOptionDialog(
             null,
             "Escolha uma opção:",
@@ -166,62 +166,39 @@ public class Main {
                 break;
             case 2:
                 // Exibir informações das turmas
-                StringBuilder infoTurmas = new StringBuilder();
-                infoTurmas.append("=== Informações da Turma ===\n\n");
-                infoTurmas.append("Curso: ").append(cursoEscolhido.getNome()).append("\n");
-                infoTurmas.append("Professor: ").append(cursoEscolhido.getProfessor().getNome()).append("\n\n");
-                
-                for (Turma turma : cursoEscolhido.getTurmas()) {
-                    infoTurmas.append("Código da Turma: ").append(turma.getCodigo()).append("\n");
-                    infoTurmas.append("Período: ").append(turma.getPeriodo()).append("\n\n");
-                    infoTurmas.append("=== Lista de Alunos ===\n");
+                System.out.println("\nInformações da turma: " + cursoEscolhido.getNome());
+                System.out.println("Professor: " + cursoEscolhido.getProfessor().getNome());
+                for (Turma turma : cursoEscolhido.getTurmas()){
+                    System.out.println("Turma: " + turma.getCodigo());
+                    System.out.println("Período: " + turma.getPeriodo());
+                    System.out.println("Alunos:");
                     for (Aluno aluno : turma.getListaDeAlunos()) {
-                        infoTurmas.append("• ").append(aluno.getNome())
-                                .append(" (Matrícula: ").append(aluno.getMatricula()).append(")\n");
+                        System.out.println("- " + aluno.getNome() + " (Matrícula: " + aluno.getMatricula() + ")");
                     }
-                    infoTurmas.append("\n=== Avaliações ===\n");
-                    for (Assessment avaliacao : turma.getListaDeAvaliacoes()) {
-                        infoTurmas.append("• ").append(avaliacao.getTipo())
-                                .append(" (Peso: ").append(avaliacao.getPeso()).append(")\n");
-                    }
+                System.out.println("Avaliações:");
+                for (Assessment avaliacao : turma.getListaDeAvaliacoes()){
+                    System.out.println("- " + avaliacao.getTipo() + " (Peso: " + avaliacao.getPeso()  + ")");
                 }
-                
-                javax.swing.JTextArea textArea = new javax.swing.JTextArea(infoTurmas.toString());
-                textArea.setEditable(false);
-                javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(textArea);
-                scrollPane.setPreferredSize(new java.awt.Dimension(500, 400));
-                javax.swing.JOptionPane.showMessageDialog(null, scrollPane, "Informações das Turmas", 
-                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                }
                 break;
             case 3:
                 // Exibir submissões de uma turma
-                StringBuilder infoSubmissoes = new StringBuilder();
-                infoSubmissoes.append("=== Submissões da Turma ===\n");
-                infoSubmissoes.append("Curso: ").append(cursoEscolhido.getNome()).append("\n\n");
-                
+                System.out.println("\nSubmissões da turma: " + cursoEscolhido.getNome());
                 for (Assessment a : cursoEscolhido.getTurmas().get(0).getListaDeAvaliacoes()) {
-                    infoSubmissoes.append("Avaliação: ").append(a.getTipo()).append("\n");
-                    infoSubmissoes.append("--------------------------------\n");
+                    System.out.println("\nAvaliação: " + a.getTipo());
                     List<Submission> submissions = a.getSubmissions();
                     if (submissions.isEmpty()) {
-                        infoSubmissoes.append("Nenhuma submissão registrada.\n");
+                        System.out.println("  Nenhuma submissao registrada.");
                     } else {
                         for (Submission s : submissions) {
-                            infoSubmissoes.append("• Aluno: ").append(s.getAluno().getNome()).append("\n")
-                                    .append("  Nota: ").append(s.getNota()).append("\n")
-                                    .append("  Data de Entrega: ").append(s.getDataEntrega()).append("\n")
-                                    .append("  Comentários: ").append(s.getComentarios()).append("\n\n");
+                            System.out.println("  Aluno: " + s.getAluno().getNome() +
+                                    " | Nota: " + s.getNota() +
+                                    " | Entrega: " + s.getDataEntrega() +
+                                    " | Comentários: " + s.getComentarios());
+
                         }
                     }
-                    infoSubmissoes.append("\n");
                 }
-                
-                javax.swing.JTextArea textArea = new javax.swing.JTextArea(infoSubmissoes.toString());
-                textArea.setEditable(false);
-                javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(textArea);
-                scrollPane.setPreferredSize(new java.awt.Dimension(500, 400));
-                javax.swing.JOptionPane.showMessageDialog(null, scrollPane, "Submissões da Turma", 
-                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 break;
             case 4:
                 String nomeAluno = javax.swing.JOptionPane.showInputDialog("Digite o nome do aluno:");
@@ -234,32 +211,20 @@ public class Main {
                     if (aluno.getNome().equalsIgnoreCase(nomeAluno)) {
                         PerformanceReport relatorio = new PerformanceReport(aluno, turmaAtual);
 
-                        StringBuilder relatorioStr = new StringBuilder();
-                        relatorioStr.append("=== Relatório de Desempenho ===\n\n");
-                        relatorioStr.append("Aluno: ").append(aluno.getNome()).append("\n");
-                        relatorioStr.append("Turma: ").append(turmaAtual.getCodigo()).append("\n\n");
-                        relatorioStr.append("=== Notas por Avaliação ===\n");
-                        
+                        System.out.println("\nRelatório de desempenho para " + aluno.getNome() + 
+                                         " na turma " + turmaAtual.getCodigo());
+
                         for (Assessment a : turmaAtual.getListaDeAvaliacoes()) {
                             for (Submission s : a.getSubmissions()) {
                                 if (s.getAluno().equals(aluno)) {
-                                    relatorioStr.append("• ").append(a.getTipo()).append(": ")
-                                               .append(s.getNota()).append("/").append(a.getNotaMaxima())
-                                               .append(" (Peso: ").append(a.getPeso()).append(")\n");
+                                    System.out.println("- " + a.getTipo() + ": " + 
+                                                     s.getNota() + "/" + a.getNotaMaxima());
                                 }
                             }
                         }
-                        
-                        relatorioStr.append("\n=== Resultados Finais ===\n");
-                        relatorioStr.append("Média Ponderada: ").append(String.format("%.2f", relatorio.calculateMediaPonderada())).append("\n");
-                        relatorioStr.append("Aproveitamento: ").append(String.format("%.2f%%", relatorio.calculaAproveitamento()));
-                        
-                        javax.swing.JTextArea textArea = new javax.swing.JTextArea(relatorioStr.toString());
-                        textArea.setEditable(false);
-                        javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(textArea);
-                        scrollPane.setPreferredSize(new java.awt.Dimension(400, 300));
-                        javax.swing.JOptionPane.showMessageDialog(null, scrollPane, "Relatório de Desempenho", 
-                            javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+                        System.out.println("Média ponderada: " + relatorio.calculateMediaPonderada());
+                        System.out.printf("Aproveitamento: %.2f%%\n", relatorio.calculaAproveitamento());
                         achou = true;
                         break;
                     }
@@ -292,5 +257,5 @@ public class Main {
     scanner.close();
     }
 }
-  
+
 
