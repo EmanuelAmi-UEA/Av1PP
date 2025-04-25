@@ -45,9 +45,7 @@ public class Main {
     turma2.adicionarAluno(new Aluno("Ana Oliveira", "2023004", "ana@email.com")); // repetido
     turma2.adicionarAluno(new Aluno("Lucas Pereira", "2023005", "lucas@email.com")); // repetido
 
-
     // criar avaliações
-
     Assessment av1Turma1 = new Assessment("Prova 1", 10.0, 0.4, turma1);
     Assessment av2Turma1 = new Assessment("Prova 2", 10.0, 0.6, turma1);
     Assessment av3Turma1 = new Assessment("prova 3", 10.0, 1.0, turma1);
@@ -97,165 +95,134 @@ public class Main {
     turma2.getListaDeAlunos().get(4).addSubmission(new Submission(turma2.getListaDeAlunos().get(4), av2Turma2, 9.0, "2025-05-15", "Parabens!"));
     turma2.getListaDeAlunos().get(4).addSubmission(new Submission(turma2.getListaDeAlunos().get(4), av3Turma2, 8.0, "2025-05-30", "Parabens!"));
 
+    boolean continuar = true;
+    while (continuar) {
+      System.out.println("\nEscolha um curso:");
+      System.out.println("1 - " + curso.getNome());
+      System.out.println("2 - " + curso2.getNome());
+      System.out.println("0 - Sair");
 
-    ///Escolha de curso usando JOptionPane
-        boolean continuar = true;
-        while (continuar) {
-            String[] opcoes = {curso.getNome(), curso2.getNome(), "Sair"};
-            int escolhaCurso = javax.swing.JOptionPane.showOptionDialog(
-                null,
-                "Escolha um curso:",
-                "Menu de Cursos",
-                javax.swing.JOptionPane.DEFAULT_OPTION,
-                javax.swing.JOptionPane.QUESTION_MESSAGE,
-                null,
-                opcoes,
-                opcoes[0]
-            );
+      int escolhaCurso = scanner.nextInt();
+      scanner.nextLine(); // Consumir a quebra de linha
 
-            if (escolhaCurso == 2 || escolhaCurso == -1) {
-                javax.swing.JOptionPane.showMessageDialog(null, "Programa encerrado.");
-                continuar = false;
-                continue;
+      if (escolhaCurso == 0) {
+        System.out.println("Programa encerrado.");
+        continuar = false;
+        continue;
+      }
+
+      if (escolhaCurso < 1 || escolhaCurso > 2) {
+        System.out.println("Curso inválido.");
+        continue;
+      }
+
+      Curso cursoEscolhido = (escolhaCurso == 1) ? curso : curso2;
+
+      System.out.println("\nEscolha uma opção:");
+      System.out.println("1 - Exibir informações dos Professores");
+      System.out.println("2 - Exibir informações das Turmas");
+      System.out.println("3 - Exibir Submissões de uma Turma");
+      System.out.println("4 - Exibir Relatório de Desempenho de um Aluno");
+      System.out.println("5 - Deletar Aluno");
+
+      int escolhaMenu = scanner.nextInt();
+      scanner.nextLine(); // Consumir a quebra de linha
+
+      switch (escolhaMenu) {
+        case 1:
+          // Exibir informações dos professores
+          System.out.println("\nInformações do Professor da turma: " + cursoEscolhido.getNome());
+          System.out.println("Professor: " + cursoEscolhido.getProfessor().getNome());
+          break;
+        case 2:
+          // Exibir informações das turmas
+          System.out.println("\nInformações da turma: " + cursoEscolhido.getNome());
+          System.out.println("Professor: " + cursoEscolhido.getProfessor().getNome());
+          for (Turma turma : cursoEscolhido.getTurmas()){
+            System.out.println("Turma: " + turma.getCodigo());
+            System.out.println("Período: " + turma.getPeriodo());
+            System.out.println("Alunos:");
+            for (Aluno aluno : turma.getListaDeAlunos()) {
+              System.out.println("- " + aluno.getNome() + " (Matrícula: " + aluno.getMatricula() + ")");
             }
-
-            escolhaCurso++; // Ajuste para manter a lógica original (1 ou 2)
-
-
-
-            if (escolhaCurso == 0) {
-                System.out.println("Programa encerrado.");
-                continuar = false;
-                continue;
+            System.out.println("Avaliações:");
+            for (Assessment avaliacao : turma.getListaDeAvaliacoes()){
+              System.out.println("- " + avaliacao.getTipo() + " (Peso: " + avaliacao.getPeso()  + ")");
             }
+          }
+          break;
+        case 3:
+          // Exibir submissões de uma turma
+          System.out.println("\nSubmissões da turma: " + cursoEscolhido.getNome());
+          for (Assessment a : cursoEscolhido.getTurmas().get(0).getListaDeAvaliacoes()) {
+            System.out.println("\nAvaliação: " + a.getTipo());
+            List<Submission> submissions = a.getSubmissions();
+            if (submissions.isEmpty()) {
+              System.out.println("  Nenhuma submissao registrada.");
+            } else {
+              for (Submission s : submissions) {
+                System.out.println("  Aluno: " + s.getAluno().getNome() +
+                                 " | Nota: " + s.getNota() +
+                                 " | Entrega: " + s.getDataEntrega() +
+                                 " | Comentários: " + s.getComentarios());
 
-            if (escolhaCurso < 1 || escolhaCurso > 2) {
-                System.out.println("Curso inválido.");
-                continue;
+              }
             }
+          }
+          break;
+        case 4:
+          System.out.println("Digite o nome do aluno:");
+          String nomeAluno = scanner.nextLine();
 
-        Curso cursoEscolhido = (escolhaCurso == 1) ? curso : curso2;
+          boolean achou = false;
+          Turma turmaAtual = cursoEscolhido.getTurmas().get(0);
 
-        // Menu de opções usando JOptionPane
-        String[] opcoesMenu = {
-            "Exibir informações dos Professores",
-            "Exibir informações das Turmas",
-            "Exibir Submissões de uma Turma",
-            "Exibir Relatório de Desempenho de um Aluno",
-            "Deletar Aluno"
-        };
+          for (Aluno aluno : turmaAtual.getListaDeAlunos()) {
+            if (aluno.getNome().equalsIgnoreCase(nomeAluno)) {
+              PerformanceReport relatorio = new PerformanceReport(aluno, turmaAtual);
 
-        int escolhaMenu = javax.swing.JOptionPane.showOptionDialog(
-            null,
-            "Escolha uma opção:",
-            "Menu Principal",
-            javax.swing.JOptionPane.DEFAULT_OPTION,
-            javax.swing.JOptionPane.QUESTION_MESSAGE,
-            null,
-            opcoesMenu,
-            opcoesMenu[0]
-        ) + 1;
+              System.out.println("\nRelatório de desempenho para " + aluno.getNome() + 
+                               " na turma " + turmaAtual.getCodigo());
 
-        // Switch para cada opção
-        switch (escolhaMenu) {
-            case 1:
-                // Exibir informações dos professores
-                String infoProfessor = "Informações do Professor da turma: " + cursoEscolhido.getNome() + "\n";
-                infoProfessor += "Professor: " + cursoEscolhido.getProfessor().getNome();
-                javax.swing.JOptionPane.showMessageDialog(null, infoProfessor);
-                break;
-            case 2:
-                // Exibir informações das turmas
-                System.out.println("\nInformações da turma: " + cursoEscolhido.getNome());
-                System.out.println("Professor: " + cursoEscolhido.getProfessor().getNome());
-                for (Turma turma : cursoEscolhido.getTurmas()){
-                    System.out.println("Turma: " + turma.getCodigo());
-                    System.out.println("Período: " + turma.getPeriodo());
-                    System.out.println("Alunos:");
-                    for (Aluno aluno : turma.getListaDeAlunos()) {
-                        System.out.println("- " + aluno.getNome() + " (Matrícula: " + aluno.getMatricula() + ")");
-                    }
-                System.out.println("Avaliações:");
-                for (Assessment avaliacao : turma.getListaDeAvaliacoes()){
-                    System.out.println("- " + avaliacao.getTipo() + " (Peso: " + avaliacao.getPeso()  + ")");
+              for (Assessment a : turmaAtual.getListaDeAvaliacoes()) {
+                for (Submission s : a.getSubmissions()) {
+                  if (s.getAluno().equals(aluno)) {
+                    System.out.println("- " + a.getTipo() + ": " + 
+                                     s.getNota() + "/" + a.getNotaMaxima());
+                  }
                 }
-                }
-                break;
-            case 3:
-                // Exibir submissões de uma turma
-                System.out.println("\nSubmissões da turma: " + cursoEscolhido.getNome());
-                for (Assessment a : cursoEscolhido.getTurmas().get(0).getListaDeAvaliacoes()) {
-                    System.out.println("\nAvaliação: " + a.getTipo());
-                    List<Submission> submissions = a.getSubmissions();
-                    if (submissions.isEmpty()) {
-                        System.out.println("  Nenhuma submissao registrada.");
-                    } else {
-                        for (Submission s : submissions) {
-                            System.out.println("  Aluno: " + s.getAluno().getNome() +
-                                    " | Nota: " + s.getNota() +
-                                    " | Entrega: " + s.getDataEntrega() +
-                                    " | Comentários: " + s.getComentarios());
+              }
 
-                        }
-                    }
-                }
-                break;
-            case 4:
-                String nomeAluno = javax.swing.JOptionPane.showInputDialog("Digite o nome do aluno:");
-                if (nomeAluno == null) continue;
-
-                boolean achou = false;
-                Turma turmaAtual = cursoEscolhido.getTurmas().get(0);
-
-                for (Aluno aluno : turmaAtual.getListaDeAlunos()) {
-                    if (aluno.getNome().equalsIgnoreCase(nomeAluno)) {
-                        PerformanceReport relatorio = new PerformanceReport(aluno, turmaAtual);
-
-                        System.out.println("\nRelatório de desempenho para " + aluno.getNome() + 
-                                         " na turma " + turmaAtual.getCodigo());
-
-                        for (Assessment a : turmaAtual.getListaDeAvaliacoes()) {
-                            for (Submission s : a.getSubmissions()) {
-                                if (s.getAluno().equals(aluno)) {
-                                    System.out.println("- " + a.getTipo() + ": " + 
-                                                     s.getNota() + "/" + a.getNotaMaxima());
-                                }
-                            }
-                        }
-
-                        System.out.println("Média ponderada: " + relatorio.calculateMediaPonderada());
-                        System.out.printf("Aproveitamento: %.2f%%\n", relatorio.calculaAproveitamento());
-                        achou = true;
-                        break;
-                    }
-                }
-
-                if (!achou) {
-                    System.out.println("Aluno não encontrado ou sem submissões.");
-                }
-                break;
-            case 5:
-                String nomeAlunoDeletar = javax.swing.JOptionPane.showInputDialog("Digite o nome do aluno para deletar:");
-                if (nomeAlunoDeletar == null) continue;
-                for (Turma turma : cursoEscolhido.getTurmas()){
-                    for (Aluno aluno : turma.getListaDeAlunos()) {
-                        if (aluno.getNome().equalsIgnoreCase(nomeAlunoDeletar)) {
-                            aluno.deleteAluno();
-                            turma.removerAluno(aluno);
-                            System.out.println("Aluno deletado com sucesso.");
-                            break;
-                        }
-                    }
-                }
-                break;
-
-          default:
-              System.out.println("Opção inválida.");
+              System.out.println("Média ponderada: " + relatorio.calculateMediaPonderada());
+              System.out.printf("Aproveitamento: %.2f%%\n", relatorio.calculaAproveitamento());
+              achou = true;
               break;
+            }
+          }
+
+          if (!achou) {
+            System.out.println("Aluno não encontrado ou sem submissões.");
+          }
+          break;
+        case 5:
+          System.out.println("Digite o nome do aluno para deletar:");
+          String nomeAlunoDeletar = scanner.nextLine();
+          for (Turma turma : cursoEscolhido.getTurmas()){
+            for (Aluno aluno : turma.getListaDeAlunos()) {
+              if (aluno.getNome().equalsIgnoreCase(nomeAlunoDeletar)) {
+                aluno.deleteAluno();
+                turma.removerAluno(aluno);
+                System.out.println("Aluno deletado com sucesso.");
+                break;
+              }
+            }
+          }
+          break;
+        default:
+          System.out.println("Opção inválida.");
+          break;
       }
     }
     scanner.close();
-    }
+  }
 }
-
-
