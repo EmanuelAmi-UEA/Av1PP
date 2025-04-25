@@ -186,11 +186,11 @@ public class Main {
                     }
                 }
                 
-                javax.swing.JTextArea textArea = new javax.swing.JTextArea(infoTurmas.toString());
-                textArea.setEditable(false);
-                javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(textArea);
-                scrollPane.setPreferredSize(new java.awt.Dimension(500, 400));
-                javax.swing.JOptionPane.showMessageDialog(null, scrollPane, "Informações das Turmas", 
+                javax.swing.JTextArea textArea1 = new javax.swing.JTextArea(infoTurmas.toString());
+                textArea1.setEditable(false);
+                javax.swing.JScrollPane scrollPane1 = new javax.swing.JScrollPane(textArea1);
+                scrollPane1.setPreferredSize(new java.awt.Dimension(500, 400));
+                javax.swing.JOptionPane.showMessageDialog(null, scrollPane1, "Informações das Turmas", 
                     javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 break;
             case 3:
@@ -216,11 +216,11 @@ public class Main {
                     infoSubmissoes.append("\n");
                 }
                 
-                javax.swing.JTextArea textArea = new javax.swing.JTextArea(infoSubmissoes.toString());
-                textArea.setEditable(false);
-                javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(textArea);
-                scrollPane.setPreferredSize(new java.awt.Dimension(500, 400));
-                javax.swing.JOptionPane.showMessageDialog(null, scrollPane, "Submissões da Turma", 
+                javax.swing.JTextArea textArea2 = new javax.swing.JTextArea(infoSubmissoes.toString());
+                textArea2.setEditable(false);
+                javax.swing.JScrollPane scrollPane2 = new javax.swing.JScrollPane(textArea2);
+                scrollPane2.setPreferredSize(new java.awt.Dimension(500, 400));
+                javax.swing.JOptionPane.showMessageDialog(null, scrollPane2, "Submissões da Turma", 
                     javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 break;
             case 4:
@@ -254,11 +254,11 @@ public class Main {
                         relatorioStr.append("Média Ponderada: ").append(String.format("%.2f", relatorio.calculateMediaPonderada())).append("\n");
                         relatorioStr.append("Aproveitamento: ").append(String.format("%.2f%%", relatorio.calculaAproveitamento()));
                         
-                        javax.swing.JTextArea textArea = new javax.swing.JTextArea(relatorioStr.toString());
-                        textArea.setEditable(false);
-                        javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(textArea);
-                        scrollPane.setPreferredSize(new java.awt.Dimension(400, 300));
-                        javax.swing.JOptionPane.showMessageDialog(null, scrollPane, "Relatório de Desempenho", 
+                        javax.swing.JTextArea textArea3 = new javax.swing.JTextArea(relatorioStr.toString());
+                        textArea3.setEditable(false);
+                        javax.swing.JScrollPane scrollPane3 = new javax.swing.JScrollPane(textArea3);
+                        scrollPane3.setPreferredSize(new java.awt.Dimension(400, 300));
+                        javax.swing.JOptionPane.showMessageDialog(null, scrollPane3, "Relatório de Desempenho", 
                             javax.swing.JOptionPane.INFORMATION_MESSAGE);
                         achou = true;
                         break;
