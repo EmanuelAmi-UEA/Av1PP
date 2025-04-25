@@ -98,17 +98,28 @@ public class Main {
     turma2.getListaDeAlunos().get(4).addSubmission(new Submission(turma2.getListaDeAlunos().get(4), av3Turma2, 8.0, "2025-05-30", "Parabens!"));
 
 
-    ///Escolha de curso
+    ///Escolha de curso usando JOptionPane
         boolean continuar = true;
         while (continuar) {
-            System.out.println("\nEscolha um curso:");
-            System.out.println("1 - " + curso.getNome());
-            System.out.println("2 - " + curso2.getNome());
-            System.out.println("0 - Sair");
-            System.out.print("Digite o número do curso: ");
+            String[] opcoes = {curso.getNome(), curso2.getNome(), "Sair"};
+            int escolhaCurso = javax.swing.JOptionPane.showOptionDialog(
+                null,
+                "Escolha um curso:",
+                "Menu de Cursos",
+                javax.swing.JOptionPane.DEFAULT_OPTION,
+                javax.swing.JOptionPane.QUESTION_MESSAGE,
+                null,
+                opcoes,
+                opcoes[0]
+            );
 
-            int escolhaCurso = scanner.nextInt();
-            scanner.nextLine();
+            if (escolhaCurso == 2 || escolhaCurso == -1) {
+                javax.swing.JOptionPane.showMessageDialog(null, "Programa encerrado.");
+                continuar = false;
+                continue;
+            }
+            
+            escolhaCurso++; // Ajuste para manter a lógica original (1 ou 2)
 
             
 
@@ -125,23 +136,33 @@ public class Main {
 
         Curso cursoEscolhido = (escolhaCurso == 1) ? curso : curso2;
 
-        // Menu de opções
-        System.out.println("\nEscolha uma opção:");
-        System.out.println("1 - Exibir informações dos Professores");
-        System.out.println("2 - Exibir informações das Turmas");
-        System.out.println("3 - Exibir Submissões de uma Turma");
-        System.out.println("4 - Exibir Relatório de Desempenho de um Aluno");
-        System.out.println("5 - Deletar Aluno");
-
-        int escolhaMenu = scanner.nextInt();
-        scanner.nextLine();
+        // Menu de opções usando JOptionPane
+        String[] opcoesMenu = {
+            "Exibir informações dos Professores",
+            "Exibir informações das Turmas",
+            "Exibir Submissões de uma Turma",
+            "Exibir Relatório de Desempenho de um Aluno",
+            "Deletar Aluno"
+        };
+        
+        int escolhaMenu = javax.swing.JOptionPane.showOptionDialog(
+            null,
+            "Escolha uma opção:",
+            "Menu Principal",
+            javax.swing.JOptionPane.DEFAULT_OPTION,
+            javax.swing.JOptionPane.QUESTION_MESSAGE,
+            null,
+            opcoesMenu,
+            opcoesMenu[0]
+        ) + 1;
 
         // Switch para cada opção
         switch (escolhaMenu) {
             case 1:
                 // Exibir informações dos professores
-                System.out.println("\nInformações do Professor da turma: " + cursoEscolhido.getNome());
-                System.out.println("Professor: " + cursoEscolhido.getProfessor().getNome());
+                String infoProfessor = "Informações do Professor da turma: " + cursoEscolhido.getNome() + "\n";
+                infoProfessor += "Professor: " + cursoEscolhido.getProfessor().getNome();
+                javax.swing.JOptionPane.showMessageDialog(null, infoProfessor);
                 break;
             case 2:
                 // Exibir informações das turmas
@@ -180,8 +201,8 @@ public class Main {
                 }
                 break;
             case 4:
-                System.out.println("\nDigite o nome do aluno:");
-                String nomeAluno = scanner.nextLine();
+                String nomeAluno = javax.swing.JOptionPane.showInputDialog("Digite o nome do aluno:");
+                if (nomeAluno == null) continue;
 
                 boolean achou = false;
                 Turma turmaAtual = cursoEscolhido.getTurmas().get(0);
@@ -214,9 +235,8 @@ public class Main {
                 }
                 break;
             case 5:
-                System.out.println("Deletar aluno");
-                System.out.println("Digite o nome do aluno:");
-                String nomeAlunoDeletar = scanner.nextLine();
+                String nomeAlunoDeletar = javax.swing.JOptionPane.showInputDialog("Digite o nome do aluno para deletar:");
+                if (nomeAlunoDeletar == null) continue;
                 for (Turma turma : cursoEscolhido.getTurmas()){
                     for (Aluno aluno : turma.getListaDeAlunos()) {
                         if (aluno.getNome().equalsIgnoreCase(nomeAlunoDeletar)) {
