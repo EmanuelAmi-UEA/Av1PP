@@ -108,7 +108,9 @@ public class Main {
             System.out.print("Digite o número do curso: ");
 
             int escolhaCurso = scanner.nextInt();
-            scanner.nextLine(); // Limpar buffer do Scanner
+            scanner.nextLine();
+
+            
 
             if (escolhaCurso == 0) {
                 System.out.println("Programa encerrado.");
@@ -132,7 +134,7 @@ public class Main {
         System.out.println("5 - Deletar Aluno");
 
         int escolhaMenu = scanner.nextInt();
-        scanner.nextLine(); // Limpar buffer do Scanner
+        scanner.nextLine();
 
         // Switch para cada opção
         switch (escolhaMenu) {

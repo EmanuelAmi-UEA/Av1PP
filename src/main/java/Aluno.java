@@ -4,7 +4,7 @@ public class Aluno{
   private String nome;
   private String matricula;
   private String email;
-  private ArrayList<Submission> submissions = new ArrayList<Submission>();
+  private ArrayList<Submission> submissions;
 
   public Aluno(String nome, String matricula, String email){
     this.nome = nome;
@@ -46,10 +46,10 @@ public class Aluno{
 
   // Método para limpar todas as submissions ao deletar o aluno
   public void deleteAluno() {
-    // Remove todas as submissions deste aluno
+
     for (Submission submission : new ArrayList<Submission>(this.submissions)) {
       Assessment assessment = submission.getAssessment();
-      // Remove a referência desta submission na lista de submissions do Assessment
+      // Remove submission da lista de assessment
       assessment.getSubmissions().remove(submission);
     }
     // Limpa a lista de submissions do aluno
